@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Registro de Datos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/styles.css">
 </head>
+
 <body>
 
-<header>
-    <h1>Registro de Usuario</h1>
-</header>
-<main class="contenedor-form">
+    <header>
+        <h1>Registro de Usuario</h1>
+    </header>
 
-    <section class="formulario">
-        <h2>Formulario de Registro</h2>
+    <main class="contenedor-form">
 
-        <form>
-            <label>Nombre:</label>
-            <input type="text" required>
+        <section class="formulario">
+            <h2>Formulario de Registro</h2>
 
-            <label>Correo:</label>
-            <input type="email" required>
+            <form id="formulario">
 
-            <label>Teléfono:</label>
-            <input type="tel">
+                <label>Nombre:</label>
+                <input type="text" id="nombre">
+                <small></small>
 
-            <label>Fecha de Nacimiento:</label>
-            <input type="date">
+                <label>Correo:</label>
+                <input type="email" id="correo">
+                <small></small>
 
-            <button type="submit">Registrar</button>
-        </form>
-    </section>
+                <label>Teléfono:</label>
+                <input type="tel" id="telefono">
+                <small></small>
 
-</main>
+                <label>Fecha de Nacimiento:</label>
+                <input type="date" id="fecha">
+                <small></small>
 
-<footer>
-    <p>© 2026 Sistema de Gestión - Grupo #7</p>
-</footer>
+                <button type="submit">Registrar</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Sistema de Gestión - Grupo #7</p>
+    </footer>
+
+    <script src="static/sweetalert.js"></script>
+    <script src="static/script.js"></script>
 
 </body>
 </html>
