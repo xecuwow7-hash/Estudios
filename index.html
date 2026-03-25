@@ -1,56 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Registro de Datos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/styles.css">
 </head>
-
 <body>
 
     <header>
-        <h1>Registro de Usuario</h1>
+        <h1>Pagina de Registro</h1>
     </header>
 
     <main class="contenedor-form">
-
         <section class="formulario">
-            <h2>Formulario de Registro</h2>
+            <h2>Crear Cuenta</h2>
+            <form id="formulario" action="registrar.php" method="POST">
+                
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre_usuario" placeholder="Ej. Jefrey Beltre" required>
+                <small class="error-mensaje"></small>
 
-            <form id="formulario">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo_usuario" placeholder="nombre@correo.com" required>
+                <small class="error-mensaje"></small>
 
-                <label>Nombre:</label>
-                <input type="text" id="nombre">
-                <small></small>
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono_usuario" placeholder="8091234567" required pattern="[0-9]{8,}">
+                <small class="error-mensaje"></small>
 
-                <label>Correo:</label>
-                <input type="email" id="correo">
-                <small></small>
+                <label for="fecha">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha" name="fecha_nacimiento" required>
+                <small class="error-mensaje"></small>
 
-                <label>Teléfono:</label>
-                <input type="tel" id="telefono">
-                <small></small>
-
-                <label>Fecha de Nacimiento:</label>
-                <input type="date" id="fecha">
-                <small></small>
-
-                <button type="submit">Registrar</button>
-
+                <button type="submit" name="registro">Registrar Datos</button>
+                
+                <div style="margin-top: 20px; text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
+                    <a href="consultar.php" style="color: var(--azul); text-decoration: none; font-weight: bold;">Ver Registros Existentes</a>
+                </div>
             </form>
-
         </section>
-
     </main>
 
     <footer>
-        <p>© 2026 Sistema de Gestión - Grupo #7</p>
+        <p>© 2026 - Grupo #7 - Proyecto Web</p>
     </footer>
-
-    <script src="static/sweetalert.js"></script>
-    <script src="static/script.js"></script>
 
 </body>
 </html>

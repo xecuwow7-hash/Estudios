@@ -1,6 +1,6 @@
 /**
- * Sistema de Gestión - Grupo #7
- * Script de Validación de Formulario de Registro
+ * Proyecto de Gestión - Grupo #7
+ * Script de Validación de Formulario de Registro (Sin SweetAlert)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,22 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // 3. FUNCIONES DE UTILIDAD (UI)
+    // Usamos el <small> que pusimos en el HTML para mostrar los mensajes
     function mostrarError(input, texto) {
-        input.nextElementSibling.innerHTML = texto;
-        input.classList.add("error");
-        input.classList.remove("exito");
+        const mensajeError = input.nextElementSibling;
+        if (mensajeError) {
+            mensajeError.innerHTML = texto;
+        }
+        input.style.borderColor = "#d9534f"; // Rojo
     }
 
     function limpiarError(input) {
-        input.nextElementSibling.innerHTML = "";
-        input.classList.remove("error");
-        // Añadimos clase de éxito si el campo tiene contenido
-        if (input.value.trim() !== "") {
-            input.classList.add("exito");
+        const mensajeError = input.nextElementSibling;
+        if (mensajeError) {
+            mensajeError.innerHTML = "";
         }
+        input.style.borderColor = ""; // Vuelve al color del CSS
     }
 
-    // 4. VALIDACIÓN EN TIEMPO REAL
+    // 4. VALIDACIÓN EN TIEMPO REAL (Opcional, pero ayuda al usuario)
     nombre.addEventListener("input", () => {
         if (nombre.value && !soloLetras.test(nombre.value)) {
             mostrarError(nombre, "Solo se permiten letras");
@@ -51,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     telefono.addEventListener("input", () => {
         if (telefono.value && !soloNumeros.test(telefono.value)) {
-            mostrarError(telefono, "Solo se permiten números");
+            mostrarError(telefono, "Solo números (mínimo 8)");
         } else {
             limpiarError(telefono);
         }
@@ -59,25 +61,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 5. MANEJO DEL ENVÍO (SUBMIT)
     form.addEventListener("submit", function(e) {
-        e.preventDefault();
         let valido = true;
 
-        // Limpiar estados previos
-        [nombre, correo, telefono, fecha].forEach(limpiarError);
-
         // Validaciones críticas antes de enviar
-        if (!soloLetras.test(nombre.value.trim())) {
-            mostrarError(nombre, "Nombre inválido");
+        if (!soloLetras.test(nombre.value.trim()) || nombre.value.trim().length < 3) {
+            mostrarError(nombre, "Nombre inválido o muy corto");
             valido = false;
         }
 
         if (!regexCorreo.test(correo.value.trim())) {
-            mostrarError(correo, "Correo inválido");
+            mostrarError(correo, "Correo electrónico inválido");
             valido = false;
         }
 
-        if (!soloNumeros.test(telefono.value.trim())) {
-            mostrarError(telefono, "Teléfono inválido");
+        if (!soloNumeros.test(telefono.value.trim()) || telefono.value.trim().length < 8) {
+            mostrarError(telefono, "Teléfono inválido (mín. 8 dígitos)");
             valido = false;
         }
 
@@ -86,26 +84,14 @@ document.addEventListener("DOMContentLoaded", () => {
             valido = false;
         }
 
-        // 6. LANZAMIENTO DE ALERTAS (SweetAlert2)
-        if (valido) {
-            Swal.fire({
-                title: '¡Registro Exitoso!',
-                text: 'Los datos del Grupo #7 se han guardado correctamente.',
-                icon: 'success',
-                confirmButtonColor: '#0b1838' // Azul Institucional
-            });
-            
-            form.reset();
-            // Limpiar clases de éxito tras resetear
-            [nombre, correo, telefono, fecha].forEach(input => input.classList.remove("exito"));
-            
+        // 6. ENVÍO FINAL
+        if (!valido) {
+            // Si hay errores, bloqueamos el envío
+            e.preventDefault();
+            console.log("Formulario con errores, envío detenido.");
         } else {
-            Swal.fire({
-                title: 'Campos Incompletos',
-                text: 'Por favor, corrija los errores marcados en rojo.',
-                icon: 'error',
-                confirmButtonColor: '#F68121' // Naranja Institucional
-            });
+            // Si todo está OK, el formulario sigue su curso hacia registrar.php
+            console.log("Validación exitosa. Enviando a registrar.php...");
         }
     });
 });

@@ -1,8 +1,12 @@
+/* --- 1. CONFIGURACIÓN GLOBAL --- */
 :root {
     --azul: #0b1838;
     --naranja: #F68121;
     --blanco: #ffffff;
     --gris: #f4f4f4;
+    --verde: #27ae60;
+    --rojo: #d9534f;
+    --amarillo: #f0ad4e;
 }
 
 * {
@@ -11,8 +15,13 @@
     box-sizing: border-box;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* 🔥 evita scroll lateral */
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background-color: var(--gris);
     display: flex;
     flex-direction: column;
@@ -22,147 +31,222 @@ body {
 header {
     background-color: var(--azul);
     color: var(--blanco);
-    padding: 20px;
+    padding: 25px;
     text-align: center;
 }
 
-nav {
-    background-color: var(--naranja);
-}
-
-nav ul {
+/* --- 2. CONTENEDORES --- */
+.contenedor-form, .contenedor-alerta {
     display: flex;
     justify-content: center;
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 10px 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: var(--blanco);
-    font-weight: bold;
-}
-
-.contenedor {
-    display: flex;
-    padding: 20px;
-    gap: 20px;
-}
-
-.contenido {
-    flex: 3;
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.card {
-    background-color: var(--blanco);
-    padding: 20px;
+    align-items: center;
+    padding: 20px; /* 🔧 reducido para mejor responsive */
     flex: 1;
-    border-left: 5px solid var(--naranja);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
 }
 
-aside {
-    flex: 1;
-    background-color: var(--blanco);
-    padding: 20px;
-    border-left: 4px solid var(--azul);
-}
-
-.contenedor-form {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-}
-
+/* --- 3. FORMULARIO --- */
 .formulario {
-    background-color: var(--blanco);
+    background: var(--blanco);
+    width: 100%;
+    max-width: 450px;
     padding: 30px;
-    width: 400px;
     border-top: 6px solid var(--naranja);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin: 8px 0 15px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background-color: var(--azul);
-    color: var(--blanco);
-    padding: 12px;
-    border: none;
-    cursor: pointer;
+#formulario label {
+    display: block;
+    margin-top: 15px;
     font-weight: bold;
+    color: #333;
 }
 
-button:hover {
+#formulario input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Validaciones */
+input[type="date"]:not(:focus):not(:valid) {
+    border: 1px solid #ccc !important;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border: 2px solid var(--rojo) !important;
+    background-color: #fdf2f2;
+}
+
+input:valid:not(:placeholder-shown) {
+    border: 2px solid var(--verde) !important;
+    background-color: #fafffa;
+}
+
+.error-mensaje {
+    display: block;
+    color: var(--rojo);
+    font-size: 12px;
+    min-height: 18px;
+    margin-top: 4px;
+}
+
+/* --- 4. TARJETAS --- */
+.tarjeta-exito {
+    background: var(--blanco);
+    width: 100%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.tarjeta-header {
+    padding: 20px;
+    color: white;
+}
+
+.tarjeta-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.tarjeta-body {
+    padding: 30px;
+    text-align: left;
+}
+
+.tarjeta-body p {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* --- 5. BOTONES --- */
+.grupo-acciones {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+button, .btn-azul, .btn-naranja {
+    flex: 1;
+    min-width: 150px;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+button, .btn-azul {
+    background-color: var(--azul);
+    color: white !important;
+}
+
+.btn-naranja {
     background-color: var(--naranja);
+    color: white !important;
 }
 
+button:hover, .btn-azul:hover {
+    opacity: 0.9;
+}
+
+/* --- 6. FOOTER --- */
 footer {
     background-color: var(--azul);
-    color: var(--blanco);
+    color: white;
     text-align: center;
+    padding: 20px;
+}
+
+/* --- 7. TABLA --- */
+.contenedor-tabla {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+    width: 100%;
+    overflow-x: auto; /*  scroll SOLO aquí */
+}
+
+table {
+    width: 100%;
+    max-width: 1100px;
+    margin: 20px auto;
+    background: var(--blanco);
+    border-collapse: collapse;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: var(--azul);
+    color: var(--blanco);
     padding: 15px;
-    margin-top: auto;
+    text-align: left;
+    font-size: 15px;
+    text-transform: uppercase;
 }
 
-.error {
-    border: 2px solid red;
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 14px;
 }
 
-.exito {
-    border: 2px solid green;
-}
+tr:nth-child(even) { background-color: #f9f9f9; }
+tr:hover { background-color: #f1f1f1; }
 
-small {
-    color: red;
-    font-size: 12px;
-}
+/* --- 8. RESPONSIVE --- */
+@media screen and (max-width: 768px) {
 
-@media (max-width: 768px) {
-    .contenedor {
+    .contenedor-form, .contenedor-alerta {
+        padding: 15px;
+    }
+
+    .formulario {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .tarjeta-exito {
+        max-width: 100%;
+    }
+
+    .grupo-acciones {
         flex-direction: column;
-        padding: 10px;
     }
 
-    .cards {
-        flex-direction: column;
-        gap: 15px;
+    button, .btn-azul, .btn-naranja {
+        width: 100%;
     }
 
-    nav ul {
-        flex-direction: row;
-        justify-content: space-evenly;
-        padding: 5px 0;
-    }
-
-    nav ul li {
-        margin: 10px 5px;
-    }
-
-    .contenedor-form {
-        padding: 20px 10px;
-    }
-
-    .alerta {
-        display: none;
-    }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
 }
+
+/* FIX GLOBAL DEFINITIVO */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Evita que cualquier elemento rompa el layout */
+* {
+    max-width: 100%;
+}
+
